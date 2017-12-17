@@ -5,13 +5,29 @@ var express = require('express')
 var bodyParser = require('body-parser')
 var mysql      = require('mysql')
 var hostString = process.argv[2]
-var connection = mysql.createConnection({
-    host     : process.env.MYSQLCS_HOST,
-    port     : process.env.MYSQLCS_MYSQL_PORT,
-    user     : process.env.MYSQLCS_USER_NAME,
-    password : process.env.MYSQLCS_USER_PASSWORD,
-    database : 'AlphaOfficeDB'
-});
+
+var connectionInfo ={
+    user: `alpha`,
+    password: `Alpha2017_`,
+    database: `AlphaOfficeDB`
+}
+
+if (process.env.VCAP_SERVICES) {
+    var services = JSON.parse(process.env.VCAP_SERVICES);
+    var mysqlConfig = services["p-mysql"];
+    if (mysqlConfig) {
+        var node = mysqlConfig[0];
+        connectionInfo = {
+            host: node.credentials.hostname,
+            port: node.credentials.port,
+            user: node.credentials.username,
+            password: node.credentials.password,
+            database: node.credentials.name
+        };
+    }
+}
+
+var connection = mysql.createConnection(connectionInfo);
 
 var port = process.env.PORT || 8002
 var app = express()

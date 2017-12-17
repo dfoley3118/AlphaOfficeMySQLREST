@@ -1,0 +1,9 @@
+---
+applications:
+- name: AlphaOfficeMySQLREST
+  memory: 1024M
+  instances: 1
+  random-route: true
+  path: .
+  services:
+    - AlphaOfficeDB
