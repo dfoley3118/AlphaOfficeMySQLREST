@@ -1,7 +1,7 @@
 ---
 applications:
 - name: AlphaOfficeMySQLREST
-  memory: 1024M
+  memory: 512M
   instances: 1
   random-route: true
   path: .
