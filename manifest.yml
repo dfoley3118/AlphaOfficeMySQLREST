@@ -3,7 +3,7 @@ applications:
 - name: AlphaOfficeMySQLREST
   memory: 512M
   instances: 1
-  random-route: true
+  url: alphaofficemysqlrest.local.pcfdev.io
   path: .
   services:
     - AlphaOfficeDB
